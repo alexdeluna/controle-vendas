@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controle de Vendas - Evento</title>
+
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="visual.css">
+
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+</head>
+<body>
+
+<div class="container">
+
+    <header>
+        <h1>Controle de Vendas</h1>
+    </header>
+
+    <!-- LOGIN -->
+
+    <section id="loginScreen" class="card">
+        <h2>Login</h2>
+
+        <input
+            type="email"
+            id="email"
+            placeholder="E-mail"
+        >
+
+        <input
+            type="password"
+            id="senha"
+            placeholder="Senha"
+        >
+
+        <button onclick="fazerLogin()">
+            Entrar
+        </button>
+    </section>
+
+    <!-- APP -->
+
+    <section id="appScreen" class="hidden">
+
+        <!-- DASHBOARD -->
+
+        <div class="card">
+
+            <h2>Dashboard</h2>
+
+            <div class="stats">
+
+                <div class="stat">
+                    <span>Lugares Disponíveis</span>
+                    <strong id="lugaresDisponiveis">100</strong>
+                </div>
+
+                <div class="stat">
+                    <span>Mesas Vendáveis</span>
+                    <strong id="mesasVendaveis">25</strong>
+                </div>
+
+                <div class="stat">
+                    <span>Arrecadação</span>
+                    <strong id="arrecadacao">
+                        R$ 0,00
+                    </strong>
+                </div>
+
+            </div>
+			
+			<div class="stat">
+    <span>Mesas Cooler</span>
+    <strong id="mesasCooler">0</strong>
+</div>
+
+<div class="stat">
+    <span>Mesas Sem Cooler</span>
+    <strong id="mesasSemCooler">0</strong>
+</div>
+
+<div class="stat">
+    <span>Avulsos</span>
+    <strong id="avulsos">0</strong>
+</div>
+
+        </div>
+
+        <!-- MENU -->
+
+        <div class="menu">
+
+            <button onclick="abrirTela('cooler')">
+                Mesa com Cooler
+            </button>
+
+            <button onclick="abrirTela('semCooler')">
+                Mesa sem Cooler
+            </button>
+
+            <button onclick="abrirTela('avulso')">
+                Cadeira Avulsa
+            </button>
+
+            <button onclick="abrirTela('relatorios')">
+                Relatórios
+            </button>
+
+            <button onclick="logout()">
+                Sair
+            </button>
+
+        </div>
+
+        <!-- VENDA MESA COM COOLER -->
+
+        <section
+            id="telaCooler"
+            class="card hidden"
+        >
+
+            <h2>Mesa com Cooler</h2>
+
+            <p>Valor: R$ 100,00</p>
+
+            <input type="text" id="coolerNome1" placeholder="Nome 1">
+            <input type="text" id="coolerNome2" placeholder="Nome 2">
+            <input type="text" id="coolerNome3" placeholder="Nome 3">
+            <input type="text" id="coolerNome4" placeholder="Nome 4">
+
+            <button onclick="venderMesaCooler()">
+                Confirmar Venda
+            </button>
+
+        </section>
+
+        <!-- VENDA MESA SEM COOLER -->
+
+        <section
+            id="telaSemCooler"
+            class="card hidden"
+        >
+
+            <h2>Mesa sem Cooler</h2>
+
+            <p>Valor: R$ 60,00</p>
+
+            <input type="text" id="semNome1" placeholder="Nome 1">
+            <input type="text" id="semNome2" placeholder="Nome 2">
+            <input type="text" id="semNome3" placeholder="Nome 3">
+            <input type="text" id="semNome4" placeholder="Nome 4">
+
+            <button onclick="venderMesaSemCooler()">
+                Confirmar Venda
+            </button>
+
+        </section>
+
+        <!-- VENDA AVULSO -->
+
+        <section
+            id="telaAvulso"
+            class="card hidden"
+        >
+
+            <h2>Cadeira Avulsa</h2>
+
+            <p>Valor: R$ 20,00</p>
+
+            <input
+                type="text"
+                id="nomeAvulso"
+                placeholder="Nome"
+            >
+
+            <button onclick="venderAvulso()">
+                Confirmar Venda
+            </button>
+
+        </section>
+
+        <!-- RELATÓRIOS -->
+
+        <section
+            id="telaRelatorios"
+            class="card hidden"
+        >
+
+            <h2>Relatórios</h2>
+
+            <button onclick="exportarExcel()">
+                Exportar Excel
+            </button>
+
+            <button onclick="exportarPDF()">
+                Exportar PDF
+            </button>
+
+            <div id="relatorioVendedores"></div>
+
+        </section>
+
+    </section>
+
+</div>
+
+<script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+
+<script src="firebase-config.js"></script>
+<script src="auth.js"></script>
+<script src="excel.js"></script>
+<script src="app.js"></script>
+
+<script>
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./sw.js');
+}
+</script>
+
+</body>
+</html>
